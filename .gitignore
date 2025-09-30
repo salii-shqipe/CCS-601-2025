@@ -1,5 +1,5 @@
 # Ignore dependencies
-/node_modules
+node_modules/
 threejs-intro/node_modules
 
 # Logs
