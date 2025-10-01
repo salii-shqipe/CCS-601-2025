@@ -78,7 +78,7 @@ const cube3 = new THREE.Mesh(
     new THREE.MeshBasicMaterial({color:0xff0000})
 );
 cube3.position.x = 1.5
-scene.add(cube3)
+group.add(cube3)
 
 function animate(){
     requestAnimationFrame(animate);
