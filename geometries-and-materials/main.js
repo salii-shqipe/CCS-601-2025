@@ -10,26 +10,27 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(800, 600);
 document.body.appendChild(renderer.domElement);
 
-// const geometry = new THREE.ConeGeometry(1, 2, 32);
-// const geometry = new THREE.TorusGeometry(1, 0.4, 16, 100);
-   const geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
-
+//  const geometry = new THREE.ConeGeometry(1, 2, 32);
+    const geometry = new THREE.TorusGeometry(1, 0.4, 16, 100);
+//  const geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
+//  const geometry = new THREE.SphereGeometry(1, 32,32);
 // Try different materials by uncommenting lines below
 
 // Basic Material – no light interaction
-// const coneMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+// const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
 
 // Lambert Material – reacts to ambient & diffuse light
-// const coneMaterial = new THREE.MeshLambertMaterial({ color: 0xff0000 });
+// const material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
 
 // Standard Material – physically based (ambient + diffuse + specular)
-const coneMaterial = new THREE.MeshStandardMaterial({
-  color: 0xff0000,
-  metalness: 0.4,
-  roughness: 0.6,
+const material = new THREE.MeshStandardMaterial({
+    color: 0xff0000,
+  // wireframe: true,
+    metalness: 0.4,
+    roughness: 0.6,
 });
 
-const sphere = new THREE.Mesh(geometry, coneMaterial);
+const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // color, intensity
