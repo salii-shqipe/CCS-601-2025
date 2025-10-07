@@ -11,9 +11,8 @@ renderer.setSize(800, 600);
 document.body.appendChild(renderer.domElement);
 
 // const geometry = new THREE.ConeGeometry(1, 2, 32);
-   const geometry = new THREE.TorusGeometry(1, 0.4, 16, 100);
-// const geometry = new THREE.ConeGeometry(1, 2, 32);
-// const geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
+// const geometry = new THREE.TorusGeometry(1, 0.4, 16, 100);
+   const geometry = new THREE.CylinderGeometry(1, 1, 2, 32);
 
 // Try different materials by uncommenting lines below
 
