@@ -68,7 +68,7 @@ const animate = () => {
 
     controls.update()
     renderer.render(scene, camera)
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(animate)
 }
 
 animate()
