@@ -2,17 +2,10 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 
-
 const gui = new GUI()
-
-
 const scene = new THREE.Scene()
 
-
-const textureLoader = new THREE.TextureLoader()
-const simpleShadow = textureLoader.load('/textures/simpleShadow.jpg')
-
-
+// Lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
 gui.add(ambientLight, 'intensity').min(0).max(3).step(0.001)
 scene.add(ambientLight)
@@ -34,12 +27,12 @@ pointLight.castShadow = true
 pointLight.position.set(-1, 1, 0)
 scene.add(pointLight)
 
-
+// Material
 const material = new THREE.MeshStandardMaterial({ roughness: 0.7 })
 gui.add(material, 'metalness').min(0).max(1).step(0.001)
 gui.add(material, 'roughness').min(0).max(1).step(0.001)
 
-
+// Objects
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 32, 32), material)
 sphere.castShadow = true
 
@@ -48,41 +41,20 @@ plane.receiveShadow = true
 plane.rotation.x = -Math.PI * 0.5
 plane.position.y = -0.5
 
+scene.add(sphere, plane)
 
-const sphereShadow = new THREE.Mesh(
-  new THREE.PlaneGeometry(1.5, 1.5),
-  new THREE.MeshBasicMaterial({
-    color: 0x000000,
-    transparent: true,
-    alphaMap: simpleShadow
-  })
-)
-sphereShadow.rotation.x = -Math.PI * 0.5
-sphereShadow.position.y = plane.position.y + 0.01
-
-scene.add(sphere, sphereShadow, plane)
-
-
+// Sizes
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight
 }
 
-window.addEventListener('resize', () => {
-  sizes.width = window.innerWidth
-  sizes.height = window.innerHeight
-  camera.aspect = sizes.width / sizes.height
-  camera.updateProjectionMatrix()
-  renderer.setSize(sizes.width, sizes.height)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
-
-
+// Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.set(1, 1, 5)
 scene.add(camera)
 
-
+// Renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -90,11 +62,11 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 document.body.appendChild(renderer.domElement)
 
-
+// Controls
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
 
-
+// Animation
 const clock = new THREE.Clock()
 
 function tick() {
@@ -104,14 +76,8 @@ function tick() {
   sphere.position.z = Math.sin(elapsedTime) * 1.5
   sphere.position.y = Math.abs(Math.sin(elapsedTime * 3))
 
-  sphereShadow.position.x = sphere.position.x
-  sphereShadow.position.z = sphere.position.z
-  sphereShadow.material.opacity = (1 - sphere.position.y) * 0.3
-
   controls.update()
-
   renderer.render(scene, camera)
-
   requestAnimationFrame(tick)
 }
 
